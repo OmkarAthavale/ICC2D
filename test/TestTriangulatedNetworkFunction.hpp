@@ -79,8 +79,11 @@ public:
         DistributedTetrahedralMesh<2,2> mesh;
         unsigned nElements = 0;
 
-        std::string myFile = "63552ICCGHuRx20z08stacktile3x31_2_B";
-        std::string meshFile = "projects/mesh/ICC2D/" + myFile + ".1";
+        //std::string myFile = "63552ICCGHuRx20z08stacktile3x31_2_B";
+        //std::string meshFile = "projects/mesh/ICC2D/" + myFile + ".1";
+        std::string myFile = "MeshNetwork-2D-85Nodes-144Elems";
+        std::string meshFile = "projects/mesh/ICC2D/" + myFile;
+
         //std::string meshFile = "projects/commandLineV2/test/network/" + myFile + ".3";
         TrianglesMeshReader<2,2> mesh_reader(meshFile.c_str());
 
@@ -97,7 +100,7 @@ public:
         {
             //Element<2,2>* presentEle = *iter;
             eleIdentify = iter->GetAttribute();
-            Node<2>* nodeInfo = 0;
+            //Node<2>* nodeInfo = 0;
             if (eleIdentify > 0.2)
             {
                 iter->CalculateJacobian(matJac, determinant);
@@ -136,36 +139,36 @@ public:
         TRACE("Number of hetero area: " << iccRegion.size());
 
         ICCNwCellFactory nwCells(iccNodes);
-        BidomainProblem<2> bidomain_problem( &nwCells);
+        BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	    HeartConfig::Instance()->SetSimulationDuration(1000);
+	      HeartConfig::Instance()->SetSimulationDuration(60000);
 
         std::string mod = myFile + "-nov";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
-	    HeartConfig::Instance()->SetOutputFilenamePrefix("results");
+	      HeartConfig::Instance()->SetOutputFilenamePrefix("results");
         std::set<unsigned> tissue_ids;
-        tissue_ids.insert(0);
+        //tissue_ids.insert(0);
         tissue_ids.insert(1);
         std::set<unsigned> bath_ids;
-        bath_ids.insert(2);
-        bath_ids.insert(3);
-        bath_ids.insert(4);
+        bath_ids.insert(0);
+        //bath_ids.insert(3);
+        //bath_ids.insert(4);
         HeartConfig::Instance()->SetTissueAndBathIdentifiers(tissue_ids, bath_ids);
-	    bidomain_problem.SetMesh( &mesh );
-	    bidomain_problem.SetWriteInfo();
+	      bidomain_problem.SetMesh( &mesh );
+	      bidomain_problem.SetWriteInfo();
         HeartConfig::Instance()->SetConductivityHeterogeneitiesEllipsoid(iccRegion, intra_conductivities, extra_conductivities);
         HeartConfig::Instance()->SetIntracellularConductivities(Create_c_vector(0.012, 0.012));
-	    HeartConfig::Instance()->SetExtracellularConductivities(Create_c_vector(0.002, 0.002));
-	    HeartConfig::Instance()->SetSurfaceAreaToVolumeRatio(2000);
-	    HeartConfig::Instance()->SetCapacitance(2.5);
-	    HeartConfig::Instance()->SetVisualizeWithMeshalyzer(true);
-	    HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.1, 0.1, 10);
-	    bidomain_problem.SetWriteInfo();
-	    bidomain_problem.Initialise();
+	      HeartConfig::Instance()->SetExtracellularConductivities(Create_c_vector(0.002, 0.002));
+	      HeartConfig::Instance()->SetSurfaceAreaToVolumeRatio(2000);
+	      HeartConfig::Instance()->SetCapacitance(2.5);
+	      HeartConfig::Instance()->SetVisualizeWithMeshalyzer(true);
+	      HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.1, 0.1, 100);
+	      bidomain_problem.SetWriteInfo();
+	      bidomain_problem.Initialise();
         HOW_MANY_TIMES_HERE("Check");
-	    bidomain_problem.Solve();
-	    HeartEventHandler::Headings();
-	    HeartEventHandler::Report();
+	      bidomain_problem.Solve();
+	      HeartEventHandler::Headings();
+	      HeartEventHandler::Report();
     }
 };
 
