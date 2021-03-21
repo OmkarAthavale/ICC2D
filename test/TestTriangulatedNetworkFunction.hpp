@@ -143,7 +143,7 @@ public:
         HeartConfig::Instance()->Reset();
 	      HeartConfig::Instance()->SetSimulationDuration(60000);
 
-        std::string mod = myFile + "-nov";
+        std::string mod = myFile + "-Local";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
 	      HeartConfig::Instance()->SetOutputFilenamePrefix("results");
         std::set<unsigned> tissue_ids;
