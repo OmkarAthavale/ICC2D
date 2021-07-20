@@ -45,13 +45,14 @@ public:
         ChastePoint<2> radii (0.01,0.01);
         ChasteEllipsoid<2> ellipseRegion(centre, radii);
         ChastePoint<2> myPoint(x, y);
-        double eta = 0;
+        double eta;
         if( setICCNode.find(index) != setICCNode.end() )
         {
             //ICCCBDerivedCa* cell = new ICCCBDerivedCa(mpSolver, mpZeroStimulus);
             Cellimtiaz_2002d_noTstart_CORFromCellML* cell = new Cellimtiaz_2002d_noTstart_CORFromCellML(mpSolver, mpZeroStimulus);
-            eta = (y*0.0130+0.037*0.36)/0.36; // valid only for the mesh file, MeshNetwork-2D-1601Nodes-3072Elems.
-            cell->SetParameter("eta",eta);
+            //eta = (y*0.0130+0.037*0.36)/0.36; // valid only for the mesh file, MeshNetwork-2D-1601Nodes-3072Elems.
+            if y > 0.35
+                cell->SetParameter("eta", 0.03);
             return cell;
         }
         return new DummyDerivedCa(mpSolver, mpZeroStimulus);

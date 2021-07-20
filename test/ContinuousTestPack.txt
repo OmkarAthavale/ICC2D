@@ -1,1 +1,2 @@
-TestTriangulatedNetworkFunction.hpp
+TestTriangulatedNetworkFunction_CB.hpp
+TestTriangulatedNetworkFunction_Imtiaz.hpp
