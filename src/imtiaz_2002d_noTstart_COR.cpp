@@ -277,8 +277,7 @@ void OdeSystemInformation<Cellimtiaz_2002d_noTstart_CORFromCellML>::Initialise(v
     this->mVariableNames.push_back("eta");
     this->mVariableUnits.push_back("dimensionless");
     this->mInitialConditions.push_back(0.045);
-    // mParameters[0]: a new parameter that should be defined for each cell
-    // in the Tests.
+    // mParameters[0]: a new parameter that should be set for each cell
     this->mParameterNames.push_back("eta");
     this->mParameterUnits.push_back("dimensionless");
 
