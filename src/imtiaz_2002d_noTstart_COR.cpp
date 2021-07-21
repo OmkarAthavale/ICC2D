@@ -24,7 +24,7 @@
     Cellimtiaz_2002d_noTstart_CORFromCellML::Cellimtiaz_2002d_noTstart_CORFromCellML(boost::shared_ptr<AbstractIvpOdeSolver> pSolver, boost::shared_ptr<AbstractStimulusFunction> pIntracellularStimulus)
         : AbstractCardiacCell(
                 pSolver,
-                6,
+                7,
                 0,
                 pIntracellularStimulus)
     {
@@ -32,7 +32,6 @@
         //
         this->mpSystemInfo = OdeSystemInformation<Cellimtiaz_2002d_noTstart_CORFromCellML>::Instance();
         Init();
-
     }
 
     Cellimtiaz_2002d_noTstart_CORFromCellML::~Cellimtiaz_2002d_noTstart_CORFromCellML()
@@ -115,7 +114,6 @@
         double var_chaste_interface__intracellular_Ca__IP_3 = rY[5];
         // Units: millimolar; Initial value: 0.3791
 
-
         // Mathematics
         double d_dt_chaste_interface__Membrane__V_m;
         const double var_Membrane__V_m = var_chaste_interface__Membrane__V_m; // voltage_units
@@ -173,8 +171,8 @@
         const double var_intracellular_Ca__u = 4.0; // dimensionless
         const double var_intracellular_Ca__r = 8.0; // dimensionless
         const double var_intracellular_Ca__P_MV = 0.032500000000000001; // millimolar_per_time_units
-        //const double var_intracellular_Ca__eta = 0.038899999999999997; // per_time_units
-        const double var_intracellular_Ca__eta = rY[6]; // per_time_units
+        const double var_intracellular_Ca__eta = mParameters[0]; // per_time_units
+        //const double var_intracellular_Ca__eta = rY[6]; // per_time_units
         const double var_intracellular_Ca__V_m = var_Membrane__V_m; // voltage_units
         const double var_intracellular_Ca__beta = 0.00097499999999999996; // millimolar_per_time_units
         const double var_intracellular_Ca__k_v =  -68.0; // voltage_units
@@ -192,7 +190,7 @@
         const double d_dt_chaste_interface__intracellular_Ca__Ca_c = var_chaste_interface__intracellular_Ca__d_Ca_c_d_Time__time; // 'millimole per litre per millisecond'
         const double d_dt_chaste_interface__intracellular_Ca__Ca_s = var_chaste_interface__intracellular_Ca__d_Ca_s_d_Time__time; // 'millimole per litre per millisecond'
         const double d_dt_chaste_interface__intracellular_Ca__IP_3 = var_chaste_interface__intracellular_Ca__d_IP_3_d_Time__time; // 'millimole per litre per millisecond'
-
+        //std::cout << var_intracellular_Ca__eta << "\n";
         if (mSetVoltageDerivativeToZero)
         {
             d_dt_chaste_interface__Membrane__V_m = 0.0;
@@ -275,14 +273,17 @@ void OdeSystemInformation<Cellimtiaz_2002d_noTstart_CORFromCellML>::Initialise(v
     this->mInitialConditions.push_back(0.3791);
 
     /////////////////// Added R. Avci ///////////////////////
-    // rY[6]:
+    // rY[6]: a new state variable (currently not used)
+    this->mVariableNames.push_back("eta");
+    this->mVariableUnits.push_back("dimensionless");
+    this->mInitialConditions.push_back(0.045);
+    // mParameters[0]: a new parameter that should be defined for each cell
+    // in the Tests.
     this->mParameterNames.push_back("eta");
     this->mParameterUnits.push_back("dimensionless");
-    ////////////////////////////////////////////////////////
 
     this->mInitialised = true;
 }
-
 
 // Serialization for Boost >= 1.36
 #include "SerializationExportWrapperForCpp.hpp"

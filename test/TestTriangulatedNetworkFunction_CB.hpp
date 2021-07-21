@@ -41,7 +41,7 @@ public:
         double x = pNode->rGetLocation()[0];
         double y = pNode->rGetLocation()[1];
         ChastePoint<2> centre(0.02,0.02);
-        ChastePoint<2> radii (0.004, 0.004);
+        ChastePoint<2> radii (0.01, 0.01);
         ChasteEllipsoid<2> ellipseRegion(centre, radii);
         ChastePoint<2> myPoint(x, y);
 
@@ -52,8 +52,8 @@ public:
             cell->SetParameter("IP3Par", 0.0006);
             cell->SetParameter("V_excitation", -65);
 
-            if(ellipseRegion.DoesContain(myPoint))
-                cell->SetParameter("V_excitation", -68);
+            //if(ellipseRegion.DoesContain(myPoint))
+            //    cell->SetParameter("V_excitation", -68);
 
             return cell;
         }
@@ -81,7 +81,7 @@ public:
 
         //std::string myFile = "63552ICCGHuRx20z08stacktile3x31_2_B";
         //std::string meshFile = "projects/mesh/ICC2D/" + myFile + ".1";
-        std::string myFile = "MeshNetwork-2D-85Nodes-144Elems";
+        std::string myFile = "MeshNetwork-2D-1601Nodes-3072Elems";
         std::string meshFile = "projects/mesh/ICC2D/" + myFile;
 
         //std::string meshFile = "projects/commandLineV2/test/network/" + myFile + ".3";
@@ -141,9 +141,9 @@ public:
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	      HeartConfig::Instance()->SetSimulationDuration(60000);
+	      HeartConfig::Instance()->SetSimulationDuration(1);
 
-        std::string mod = myFile + "-Local";
+        std::string mod = myFile + "-CB-v0";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
 	      HeartConfig::Instance()->SetOutputFilenamePrefix("results");
         std::set<unsigned> tissue_ids;
@@ -162,7 +162,7 @@ public:
 	      HeartConfig::Instance()->SetSurfaceAreaToVolumeRatio(2000);
 	      HeartConfig::Instance()->SetCapacitance(2.5);
 	      HeartConfig::Instance()->SetVisualizeWithMeshalyzer(true);
-	      HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.1, 0.1, 100);
+	      HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.1, 0.1, 1);
 	      bidomain_problem.SetWriteInfo();
 	      bidomain_problem.Initialise();
         HOW_MANY_TIMES_HERE("Check");
