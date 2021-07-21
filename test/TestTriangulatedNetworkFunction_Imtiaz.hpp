@@ -34,8 +34,6 @@ public:
     {
         TRACE("Number of node in cell factory: " << setICCNode.size());
     }
-
-
     AbstractCardiacCell* CreateCardiacCellForTissueNode(Node<2>* pNode)
     {
         unsigned index =  pNode->GetIndex();
@@ -139,5 +137,4 @@ public:
 	HeartEventHandler::Report();
     }
 };
-
 #endif
