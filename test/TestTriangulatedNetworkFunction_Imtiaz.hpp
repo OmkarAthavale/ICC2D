@@ -50,12 +50,10 @@ public:
         {
             //ICCCBDerivedCa* cell = new ICCCBDerivedCa(mpSolver, mpZeroStimulus);
             Cellimtiaz_2002d_noTstart_CORFromCellML* cell = new Cellimtiaz_2002d_noTstart_CORFromCellML(mpSolver, mpZeroStimulus);
-            //eta = (y*0.0130+0.037*0.36)/0.36; // valid only for the mesh file, MeshNetwork-2D-1601Nodes-3072Elems.
             cell->SetParameter("eta", 0.045);
             if(ellipseRegion.DoesContain(myPoint))
             {
                 cell->SetParameter("eta", 0.037);
-                TRACE("HERE");
             }
             return cell;
         }
@@ -83,29 +81,12 @@ public:
         nElements = mesh.GetNumLocalElements();
         TRACE("Number of elements: " << nElements);
         double eleIdentify = 0;
-        //c_matrix<double, 2, 2> matJac;
-        //c_matrix<double, 2, 2> matInvJac;
-        //c_vector<double, 3> circum;
-        //double determinant = 0;
         for (DistributedTetrahedralMesh<2,2>::ElementIterator iter = mesh.GetElementIteratorBegin(); iter != mesh.GetElementIteratorEnd();
              ++iter)
         {
-            //Element<2,2>* presentEle = *iter;
             eleIdentify = iter->GetAttribute();
-            //Node<2>* nodeInfo = 0;
             if (eleIdentify == 1) // ICC=1 and Bath=0
             {
-                //iter->CalculateJacobian(matJac, determinant);
-                //iter->CalculateInverseJacobian(matJac, determinant, matInvJac);
-                //circum = iter->CalculateCircumsphere(matJac, matInvJac);
-                //ChastePoint<3> centre(circum(0),circum(1),0);
-                //double radius = sqrt(circum(2));
-                //ChastePoint<3> radii(1.1*radius,1.1*radius,0);
-
-                //ChasteEllipsoid<3> ellipseRegion(centre, radii);
-                //iccRegion.push_back(ellipseRegion);
-                //intra_conductivities.push_back( Create_c_vector(0.12, 0.12, 0.0));
-                //extra_conductivities.push_back( Create_c_vector(0.02, 0.02, 0.0));
                 if(!iter->GetNode(0)->IsBoundaryNode())
                 {
                     iccNodes.insert(iter->GetNodeGlobalIndex(0));
@@ -128,39 +109,34 @@ public:
         TRACE("Number of elements: " << nElements);
         TRACE("Number of ICC nodes: " << iccNodes.size());
         TRACE("Total number of nodes: " << mesh.GetNumAllNodes());
-        //TRACE("Number of hetero area: " << iccRegion.size());
 
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	      HeartConfig::Instance()->SetSimulationDuration(40000);
+	HeartConfig::Instance()->SetSimulationDuration(40000);
 
-        std::string mod = myFile + "-Imtiaz-v2";
+        std::string mod = myFile + "-Imtiaz";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
-	      HeartConfig::Instance()->SetOutputFilenamePrefix("results");
+	HeartConfig::Instance()->SetOutputFilenamePrefix("results");
         std::set<unsigned> tissue_ids;
-        //tissue_ids.insert(0);
         tissue_ids.insert(1);
         std::set<unsigned> bath_ids;
         bath_ids.insert(0);
-        //bath_ids.insert(3);
-        //bath_ids.insert(4);
         HeartConfig::Instance()->SetTissueAndBathIdentifiers(tissue_ids, bath_ids);
-	      bidomain_problem.SetMesh( &mesh );
-	      bidomain_problem.SetWriteInfo();
-        //HeartConfig::Instance()->SetConductivityHeterogeneitiesEllipsoid(iccRegion, intra_conductivities, extra_conductivities);
-        HeartConfig::Instance()->SetIntracellularConductivities(Create_c_vector(0.12, 0.12)); // these are quite smaller than cm values but possible due to the units?
-	      HeartConfig::Instance()->SetExtracellularConductivities(Create_c_vector(0.2, 0.2)); // these are quite smaller than cm values but possible due to the units?
-	      HeartConfig::Instance()->SetSurfaceAreaToVolumeRatio(2000);
-	      HeartConfig::Instance()->SetCapacitance(2.5);
-	      HeartConfig::Instance()->SetVisualizeWithMeshalyzer(true);
-	      HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.1, 0.1, 10);
-	      bidomain_problem.SetWriteInfo();
-	      bidomain_problem.Initialise();
+	bidomain_problem.SetMesh( &mesh );
+	bidomain_problem.SetWriteInfo();
+        HeartConfig::Instance()->SetIntracellularConductivities(Create_c_vector(0.12, 0.12)); // these are quite smaller than cm values
+	HeartConfig::Instance()->SetExtracellularConductivities(Create_c_vector(0.2, 0.2)); // these are quite smaller than cm values
+	HeartConfig::Instance()->SetSurfaceAreaToVolumeRatio(2000);
+	HeartConfig::Instance()->SetCapacitance(2.5);
+	HeartConfig::Instance()->SetVisualizeWithMeshalyzer(true);
+	HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.1, 0.1, 10);
+	bidomain_problem.SetWriteInfo();
+	bidomain_problem.Initialise();
         HOW_MANY_TIMES_HERE("Check");
-	      bidomain_problem.Solve();
-	      HeartEventHandler::Headings();
-	      HeartEventHandler::Report();
+	bidomain_problem.Solve();
+	HeartEventHandler::Headings();
+	HeartEventHandler::Report();
     }
 };
 
