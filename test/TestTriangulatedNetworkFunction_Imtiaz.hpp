@@ -49,10 +49,11 @@ public:
             //ICCCBDerivedCa* cell = new ICCCBDerivedCa(mpSolver, mpZeroStimulus);
             Cellimtiaz_2002d_noTstart_CORFromCellML* cell = new Cellimtiaz_2002d_noTstart_CORFromCellML(mpSolver, mpZeroStimulus);
             cell->SetParameter("eta", 0.045);
-            if(ellipseRegion.DoesContain(myPoint))
-            {
-                cell->SetParameter("eta", 0.037);
-            }
+            // if(ellipseRegion.DoesContain(myPoint))
+            // {
+            //     cell->SetParameter("eta", 0.037);
+            // }
+            cell->SetParameter("E_K", -25.0*y-70.0)
             return cell;
         }
         return new DummyDerivedCa(mpSolver, mpZeroStimulus);
@@ -111,7 +112,7 @@ public:
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	HeartConfig::Instance()->SetSimulationDuration(40000);
+	HeartConfig::Instance()->SetSimulationDuration(10000);
 
         std::string mod = myFile + "-Imtiaz";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
