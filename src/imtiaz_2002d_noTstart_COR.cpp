@@ -174,10 +174,13 @@
         // const double var_intracellular_Ca__eta = 0.0389; // per_time_units
         if (var_chaste_interface__Time__time > 30000)
         {
-            const double var_intracellular_Ca__eta = 0.039; // per_time_units
+            const double var_intracellular_Ca__eta = 0.0389; // per_time_units
         } else if (var_chaste_interface__Time__time > 15000)
         {
             const double var_intracellular_Ca__eta = 0.043; // per_time_units
+        } else 
+        {
+            const double var_intracellular_Ca__eta = 0.0389; // per_time_units
         }
         //const double var_intracellular_Ca__eta = rY[6]; // per_time_units
         const double var_intracellular_Ca__V_m = var_Membrane__V_m; // voltage_units
