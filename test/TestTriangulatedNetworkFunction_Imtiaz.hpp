@@ -48,12 +48,14 @@ public:
         {
             //ICCCBDerivedCa* cell = new ICCCBDerivedCa(mpSolver, mpZeroStimulus);
             Cellimtiaz_2002d_noTstart_CORFromCellML* cell = new Cellimtiaz_2002d_noTstart_CORFromCellML(mpSolver, mpZeroStimulus);
-            cell->SetParameter("eta", 0.045);
+            // cell->SetParameter("eta", 0.045);
             // if(ellipseRegion.DoesContain(myPoint))
             // {
             //     cell->SetParameter("eta", 0.037);
             // }
-            cell->SetParameter("E_K", -25.0*y-70.0)
+            TRACE("NodeY: " << y);
+            TRACE("E_K val: " << -25.0*y-70.0);
+            cell->SetParameter("E_K", -25.0*y-70.0);
             return cell;
         }
         return new DummyDerivedCa(mpSolver, mpZeroStimulus);

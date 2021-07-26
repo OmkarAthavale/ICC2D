@@ -79,7 +79,7 @@
         const double var_d_BK__V_m = var_i_BK__V_m; // voltage_units
         const double var_d_BK__d_BK = 1.0 / (1.0 + exp((var_d_BK__V_m / (-17.0)) - (2.0 * log(var_d_BK__Ca_c / 0.001)))); // dimensionless
         const double var_i_BK__d_BK = var_d_BK__d_BK; // dimensionless
-        const double var_i_BK__E_K =  -72.0; // voltage_units
+        const double var_i_BK__E_K =  mParameters[0];//-72.0; // voltage_units
         const double var_i_BK__I_BK = var_i_BK__G_max_BK * var_i_BK__d_BK * (var_i_BK__V_m - var_i_BK__E_K); // current_units
         const double var_Membrane__I_stim = 0.0; // current_units
         const double var_Membrane__i_Na__I_Na = var_i_Na__I_Na; // current_units
@@ -171,7 +171,7 @@
         const double var_intracellular_Ca__u = 4.0; // dimensionless
         const double var_intracellular_Ca__r = 8.0; // dimensionless
         const double var_intracellular_Ca__P_MV = 0.032500000000000001; // millimolar_per_time_units
-        const double var_intracellular_Ca__eta = mParameters[0]; // per_time_units
+        const double var_intracellular_Ca__eta = 0.0389; // per_time_units
         //const double var_intracellular_Ca__eta = rY[6]; // per_time_units
         const double var_intracellular_Ca__V_m = var_Membrane__V_m; // voltage_units
         const double var_intracellular_Ca__beta = 0.00097499999999999996; // millimolar_per_time_units
@@ -278,8 +278,8 @@ void OdeSystemInformation<Cellimtiaz_2002d_noTstart_CORFromCellML>::Initialise(v
     this->mVariableUnits.push_back("dimensionless");
     this->mInitialConditions.push_back(0.045);
     // mParameters[0]: a new parameter that should be set for each cell
-    this->mParameterNames.push_back("eta");
-    this->mParameterUnits.push_back("dimensionless");
+    this->mParameterNames.push_back("E_K");
+    this->mParameterUnits.push_back("voltage_units");
 
     this->mInitialised = true;
 }
