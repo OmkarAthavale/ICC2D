@@ -1,7 +1,7 @@
 # Includes
-## TestTriangulatNetworkFunction_CB
+## TestTriangulatedNetworkFunction_CB
 
-## TestTriangulatNetworkFunction_Imtiaz
+## TestTriangulatedNetworkFunction_Imtiaz
 Imtiaz 2002d cell model, without TStart, with Cor
 Has a pacemaker set by eta=0.045 at the proximal corpus
 
