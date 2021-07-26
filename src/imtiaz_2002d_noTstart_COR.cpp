@@ -171,7 +171,14 @@
         const double var_intracellular_Ca__u = 4.0; // dimensionless
         const double var_intracellular_Ca__r = 8.0; // dimensionless
         const double var_intracellular_Ca__P_MV = 0.032500000000000001; // millimolar_per_time_units
-        const double var_intracellular_Ca__eta = 0.0389; // per_time_units
+        // const double var_intracellular_Ca__eta = 0.0389; // per_time_units
+        if (var_chaste_interface__Time__time > 30000)
+        {
+            const double var_intracellular_Ca__eta = 0.039; // per_time_units
+        } else if (var_chaste_interface__Time__time > 15000)
+        {
+            const double var_intracellular_Ca__eta = 0.043; // per_time_units
+        }
         //const double var_intracellular_Ca__eta = rY[6]; // per_time_units
         const double var_intracellular_Ca__V_m = var_Membrane__V_m; // voltage_units
         const double var_intracellular_Ca__beta = 0.00097499999999999996; // millimolar_per_time_units
