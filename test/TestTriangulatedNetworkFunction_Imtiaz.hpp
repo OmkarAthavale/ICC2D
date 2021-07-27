@@ -120,7 +120,7 @@ public:
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	HeartConfig::Instance()->SetSimulationDuration(15000);
+	HeartConfig::Instance()->SetSimulationDuration(120000);
 
         std::string mod = myFile + "-Imtiaz";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
