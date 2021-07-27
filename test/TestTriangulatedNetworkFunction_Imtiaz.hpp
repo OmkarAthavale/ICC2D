@@ -56,6 +56,12 @@ public:
             TRACE("NodeY: " << y);
             TRACE("E_K val: " << -25.0*y-70.0);
             cell->SetParameter("E_K", -25.0*y-70.0);
+            cell->mX = x;
+            cell->mY = y;
+
+            TRACE("NodeX: " << cell->mX)
+            TRACE("NodeY: " << cell->mY)
+
             return cell;
         }
         return new DummyDerivedCa(mpSolver, mpZeroStimulus);
@@ -114,7 +120,7 @@ public:
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	HeartConfig::Instance()->SetSimulationDuration(10000);
+	HeartConfig::Instance()->SetSimulationDuration(15000);
 
         std::string mod = myFile + "-Imtiaz";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());

@@ -26,13 +26,17 @@ class Cellimtiaz_2002d_noTstart_CORFromCellML : public AbstractCardiacCell
     {
         archive & boost::serialization::base_object<AbstractCardiacCell >(*this);
     }
-    
-    
+
+
+
 public:
     Cellimtiaz_2002d_noTstart_CORFromCellML(boost::shared_ptr<AbstractIvpOdeSolver> pSolver, boost::shared_ptr<AbstractStimulusFunction> pIntracellularStimulus);
     ~Cellimtiaz_2002d_noTstart_CORFromCellML();
     double GetIIonic(const std::vector<double>* pStateVariables=NULL);
     void EvaluateYDerivatives(double var_chaste_interface__Time__time, const std::vector<double>& rY, std::vector<double>& rDY);
+    
+    double mX;
+    double mY;
 };
 
 

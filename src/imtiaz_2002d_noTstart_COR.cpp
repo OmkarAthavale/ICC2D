@@ -114,6 +114,13 @@
         double var_chaste_interface__intracellular_Ca__IP_3 = rY[5];
         // Units: millimolar; Initial value: 0.3791
 
+
+        double beta_val = 0.0007;
+        if ((var_chaste_interface__Time__time > 10000.0) & (var_chaste_interface__Time__time < 90000.0) & (this->mY < 0.1) & (this->mX < 0.05))
+        {
+            beta_val = 0.001;
+        }
+
         // Mathematics
         double d_dt_chaste_interface__Membrane__V_m;
         const double var_Membrane__V_m = var_chaste_interface__Membrane__V_m; // voltage_units
@@ -171,20 +178,10 @@
         const double var_intracellular_Ca__u = 4.0; // dimensionless
         const double var_intracellular_Ca__r = 8.0; // dimensionless
         const double var_intracellular_Ca__P_MV = 0.032500000000000001; // millimolar_per_time_units
-        // const double var_intracellular_Ca__eta = 0.0389; // per_time_units
-        if (var_chaste_interface__Time__time > 30000)
-        {
-            const double var_intracellular_Ca__eta = 0.0389; // per_time_units
-        } else if (var_chaste_interface__Time__time > 15000)
-        {
-            const double var_intracellular_Ca__eta = 0.043; // per_time_units
-        } else 
-        {
-            const double var_intracellular_Ca__eta = 0.0389; // per_time_units
-        }
+        const double var_intracellular_Ca__eta = 0.0389; // per_time_units
         //const double var_intracellular_Ca__eta = rY[6]; // per_time_units
         const double var_intracellular_Ca__V_m = var_Membrane__V_m; // voltage_units
-        const double var_intracellular_Ca__beta = 0.00097499999999999996; // millimolar_per_time_units
+        const double var_intracellular_Ca__beta = beta_val; // millimolar_per_time_units
         const double var_intracellular_Ca__k_v =  -68.0; // voltage_units
         const double var_intracellular_Ca__k_4 = 0.5; // millimolar
         const double var_intracellular_Ca__V_M4 = 0.00048749999999999998; // millimolar_per_time_units
