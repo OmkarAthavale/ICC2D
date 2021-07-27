@@ -115,10 +115,10 @@
         // Units: millimolar; Initial value: 0.3791
 
 
-        double beta_val = 0.0007;
-        if ((var_chaste_interface__Time__time > 10000.0) & (var_chaste_interface__Time__time < 90000.0) & (this->mY < 0.1) & (this->mX < 0.05))
+        double beta_val = 0.0003;
+        if ((var_chaste_interface__Time__time > 30000.0) & (var_chaste_interface__Time__time < 90000.0) & (this->mY < 0.1) & (this->mX < 0.05))
         {
-            beta_val = 0.001;
+            beta_val = 0.0018;
         }
 
         // Mathematics
