@@ -31,6 +31,7 @@
         // Time units: millisecond
         //
         this->mpSystemInfo = OdeSystemInformation<Cellimtiaz_2002d_noTstart_CORFromCellML>::Instance();
+        this->curr_param_set = 0;
         Init();
     }
 
@@ -115,11 +116,11 @@
         // Units: millimolar; Initial value: 0.3791
 
 
-        double beta_val = 0.0003;
-        if ((var_chaste_interface__Time__time > 30000.0) & (var_chaste_interface__Time__time < 90000.0) & (this->mY < 0.1) & (this->mX < 0.05))
+        if (var_chaste_interface__Time__time > this->beta_times[curr_param_set])
         {
-            beta_val = 0.0018;
+            this->curr_param_set++;
         }
+        double beta_val = this->beta_vals[curr_param_set];
 
         // Mathematics
         double d_dt_chaste_interface__Membrane__V_m;

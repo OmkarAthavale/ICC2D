@@ -37,6 +37,10 @@ public:
     
     double mX;
     double mY;
+    int curr_param_set;
+    std::vector<double> beta_times;
+    std::vector<double> beta_vals;
+    
 };
 
 

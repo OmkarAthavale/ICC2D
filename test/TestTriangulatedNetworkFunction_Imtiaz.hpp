@@ -5,7 +5,9 @@
 #include <cassert>
 
 #include <set>
-
+#include <iostream>
+#include <fstream>
+#include <vector>
 #include "BidomainProblem.hpp"
 #include "PetscSetupAndFinalize.hpp"
 //#include "../src/ICCCBDerivedCa.hpp"
@@ -59,8 +61,28 @@ public:
             cell->mX = x;
             cell->mY = y;
 
-            TRACE("NodeX: " << cell->mX)
-            TRACE("NodeY: " << cell->mY)
+            // Read in times:
+            std::ifstream fin("/home/chaste/params/beta_times.txt");
+            std::vector<double> beta_times_inp;
+            double element;
+            while (fin >> element)
+            {
+                beta_times_inp.push_back(element);
+            }
+
+            std::ifstream fin("home/chaste/params/beta_vals.txt");
+            std::vector<double> beta_vals_inp;
+            double element;
+            while (fin >> element)
+            {
+                beta_vals_inp.push_back(element);
+            }
+
+
+            cell->beta_vals = beta_vals_inp;
+
+            TRACE("NodeX: " << cell->mX);
+            TRACE("NodeY: " << cell->mY);
 
             return cell;
         }
@@ -120,7 +142,7 @@ public:
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	HeartConfig::Instance()->SetSimulationDuration(120000);
+	HeartConfig::Instance()->SetSimulationDuration(15000);
 
         std::string mod = myFile + "-Imtiaz";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
