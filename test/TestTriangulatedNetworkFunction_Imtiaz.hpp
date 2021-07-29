@@ -45,7 +45,6 @@ public:
         ChastePoint<2> radii (0.01,0.01);
         ChasteEllipsoid<2> ellipseRegion(centre, radii);
         ChastePoint<2> myPoint(x, y);
-        double eta;
         if( setICCNode.find(index) != setICCNode.end() )
         {
             //ICCCBDerivedCa* cell = new ICCCBDerivedCa(mpSolver, mpZeroStimulus);
@@ -61,28 +60,25 @@ public:
             cell->mX = x;
             cell->mY = y;
 
-            // Read in times:
+            // Read in times
             std::ifstream fin("/home/chaste/params/beta_times.txt");
-            std::vector<double> beta_times_inp;
             double element;
             while (fin >> element)
             {
-                beta_times_inp.push_back(element);
+                cell->beta_times.push_back(element);
+                TRACE("Time: " << element_val);
             }
 
-            std::ifstream fin("home/chaste/params/beta_vals.txt");
-            std::vector<double> beta_vals_inp;
-            double element;
-            while (fin >> element)
+            std::ifstream fin_val("/home/chaste/params/beta_vals.txt");
+            double element_val;
+            while (fin_val >> element_val)
             {
-                beta_vals_inp.push_back(element);
+                cell->beta_vals.push_back(element_val);
+                TRACE("Value: " << element_val);
             }
-
-
-            cell->beta_vals = beta_vals_inp;
-
-            TRACE("NodeX: " << cell->mX);
-            TRACE("NodeY: " << cell->mY);
+            TRACE("End cell");
+            // TRACE("NodeX: " << cell->beta_vals);
+            // TRACE("NodeY: " << cell->beta_times);
 
             return cell;
         }
@@ -142,7 +138,7 @@ public:
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	HeartConfig::Instance()->SetSimulationDuration(15000);
+	HeartConfig::Instance()->SetSimulationDuration(200000);
 
         std::string mod = myFile + "-Imtiaz";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());

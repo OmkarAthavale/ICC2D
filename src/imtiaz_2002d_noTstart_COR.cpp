@@ -114,13 +114,17 @@
         // Units: millimolar; Initial value: 2.0014
         double var_chaste_interface__intracellular_Ca__IP_3 = rY[5];
         // Units: millimolar; Initial value: 0.3791
-
-
-        if (var_chaste_interface__Time__time > this->beta_times[curr_param_set])
+        
+        // Changing beta param in time :: OA, July 2021
+        double beta_val = 0.000975;
+        if ((this->mY < 0.1) & (this->mX < 0.05))
         {
-            this->curr_param_set++;
+            if (var_chaste_interface__Time__time > this->beta_times[curr_param_set])
+            {
+                this->curr_param_set++;
+            }
+            beta_val = this->beta_vals[curr_param_set];
         }
-        double beta_val = this->beta_vals[curr_param_set];
 
         // Mathematics
         double d_dt_chaste_interface__Membrane__V_m;
