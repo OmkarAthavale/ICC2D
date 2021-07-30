@@ -117,13 +117,14 @@
         
         // Changing beta param in time :: OA, July 2021
         double beta_val = 0.000975;
+        double change_var = 0.75;
         if ((this->mY < 0.1) & (this->mX < 0.05))
         {
             if (var_chaste_interface__Time__time > this->beta_times[curr_param_set])
             {
                 this->curr_param_set++;
             }
-            beta_val = this->beta_vals[curr_param_set];
+            change_var = this->beta_vals[curr_param_set];
         }
 
         // Mathematics
@@ -135,7 +136,7 @@
         const double var_i_Na__d_Na = var_Membrane__d_Na; // dimensionless
         const double var_i_Na__V_m = var_Membrane__V_m; // voltage_units
         const double var_Membrane__Ca_c = var_chaste_interface__intracellular_Ca__Ca_c; // millimolar
-        const double var_Membrane__Cor = 1.0; // dimensionless
+        const double var_Membrane__Cor = change_var; // dimensionless
         const double var_d_Na__V_m = var_i_Na__V_m; // voltage_units
         const double var_d_Na__d_inf_Na = 1.0 / (1.0 + exp((var_d_Na__V_m + 7.0) / (-5.0))); // dimensionless
         const double var_d_Na__d_Na = var_i_Na__d_Na; // dimensionless

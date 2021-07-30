@@ -66,10 +66,10 @@ public:
             while (fin >> element)
             {
                 cell->beta_times.push_back(element);
-                TRACE("Time: " << element_val);
+                TRACE("Time: " << element);
             }
 
-            std::ifstream fin_val("/home/chaste/params/beta_vals.txt");
+            std::ifstream fin_val("/home/chaste/params/cor_vals.txt");
             double element_val;
             while (fin_val >> element_val)
             {
@@ -138,7 +138,7 @@ public:
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	HeartConfig::Instance()->SetSimulationDuration(200000);
+	HeartConfig::Instance()->SetSimulationDuration(30000);
 
         std::string mod = myFile + "-Imtiaz";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
