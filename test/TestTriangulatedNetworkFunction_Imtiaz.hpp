@@ -55,8 +55,8 @@ public:
             //     cell->SetParameter("eta", 0.037);
             // }
             TRACE("NodeY: " << y);
-            TRACE("E_K val: " << -25.0*y-70.0);
-            cell->SetParameter("E_K", -25.0*y-70.0);
+            TRACE("E_K val: " << -1.6*y-70.0);
+            cell->SetParameter("E_K", -1.6*y-70.0);
             cell->mX = x;
             cell->mY = y;
 
@@ -98,8 +98,8 @@ public:
         DistributedTetrahedralMesh<2,2> mesh;
         unsigned nElements = 0;
 
-        std::string myFile = "MeshNetwork-2D-1601Nodes-3072Elems";
-        std::string meshFile = "projects/mesh/ICC2D/" + myFile;
+        std::string myFile = "MeshNetwork-2D-2147Nodes-4160Elems";//"MeshNetwork-2D-1601Nodes-3072Elems";
+        std::string meshFile = "projects/mesh/Rect2D/sp0-75/" + myFile;
         TrianglesMeshReader<2,2> mesh_reader(meshFile.c_str());
 
         mesh.ConstructFromMeshReader(mesh_reader);
@@ -155,7 +155,7 @@ public:
 	HeartConfig::Instance()->SetSurfaceAreaToVolumeRatio(2000);
 	HeartConfig::Instance()->SetCapacitance(2.5);
 	HeartConfig::Instance()->SetVisualizeWithMeshalyzer(true);
-	HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.1, 0.1, 10);
+	HeartConfig::Instance()->SetOdePdeAndPrintingTimeSteps(0.1, 0.1, 100);
 	bidomain_problem.SetWriteInfo();
 	bidomain_problem.Initialise();
         HOW_MANY_TIMES_HERE("Check");
