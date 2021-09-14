@@ -1,2 +1,3 @@
 TestTriangulatedNetworkFunction_CB.hpp
 TestTriangulatedNetworkFunction_Imtiaz.hpp
+TestTriangulatedNetworkFunction_Neural.hpp

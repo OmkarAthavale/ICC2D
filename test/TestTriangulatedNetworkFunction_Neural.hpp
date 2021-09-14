@@ -9,7 +9,7 @@
 #include "BidomainProblem.hpp"
 #include "PetscSetupAndFinalize.hpp"
 //#include "../src/ICCCBDerivedCa.hpp"
-#include "../src/CellDu2013_neuralFromCellML.hpp"
+#include "../src/Du2013_neural.hpp"
 #include "TetrahedralMesh.hpp"
 #include "DistributedTetrahedralMesh.hpp"
 #include "TrianglesMeshReader.hpp"
