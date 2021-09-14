@@ -42,6 +42,7 @@
         
         this->mParameters[0] = 0.00097499999999999996; // (var_intracellular_Ca__beta) [millimolar_per_time_units]
         this->mParameters[1] = 1.2; // (var_i_BK__G_max_BK) [conductance_units]
+		this->mParameters[2] = 0.0389; // (var_i_BK__G_max_BK) [conductance_units]
     }
 
     CellDu2013_neuralFromCellML::~CellDu2013_neuralFromCellML()
@@ -118,7 +119,7 @@
         const double var_intracellular_Ca__V_M3 = 0.32240000000000002; // millimolar_per_time_units
         const double var_intracellular_Ca__V_M4 = 0.00048749999999999998; // millimolar_per_time_units
         const double var_intracellular_Ca__V_in = var_chaste_interface__intracellular_Ca__IP_3 * var_intracellular_Ca__V_1 + var_intracellular_Ca__V_0; // millimolar_per_time_units
-        const double var_intracellular_Ca__eta = 0.038899999999999997; // per_time_units
+        //const double var_intracellular_Ca__eta = 0.038899999999999997; // per_time_units
         const double var_intracellular_Ca__k_2 = 1.0; // millimolar
         const double var_intracellular_Ca__k_4 = 0.5; // millimolar
         const double var_intracellular_Ca__k_a = 0.90000000000000002; // millimolar
@@ -132,7 +133,7 @@
         const double var_intracellular_Ca__o = 4.0; // dimensionless
         const double var_intracellular_Ca__r = 5.0; // dimensionless
         const double var_intracellular_Ca__u = 4.0; // dimensionless
-        const double d_dt_chaste_interface_var_intracellular_Ca__IP_3 = ((1.0 - pow(var_chaste_interface__Membrane__V_m, var_intracellular_Ca__r) / (pow(var_chaste_interface__Membrane__V_m, var_intracellular_Ca__r) + pow(var_intracellular_Ca__k_v, var_intracellular_Ca__r))) * var_intracellular_Ca__P_MV - var_chaste_interface__intracellular_Ca__IP_3 * var_intracellular_Ca__eta - pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__u) * var_intracellular_Ca__V_M4 / (pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__u) + pow(var_intracellular_Ca__k_4, var_intracellular_Ca__u)) + mParameters[0]) * var_Membrane__Cor; // millimolar / time_units
+        const double d_dt_chaste_interface_var_intracellular_Ca__IP_3 = ((1.0 - pow(var_chaste_interface__Membrane__V_m, var_intracellular_Ca__r) / (pow(var_chaste_interface__Membrane__V_m, var_intracellular_Ca__r) + pow(var_intracellular_Ca__k_v, var_intracellular_Ca__r))) * var_intracellular_Ca__P_MV - var_chaste_interface__intracellular_Ca__IP_3 * mParameters[2] - pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__u) * var_intracellular_Ca__V_M4 / (pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__u) + pow(var_intracellular_Ca__k_4, var_intracellular_Ca__u)) + mParameters[0]) * var_Membrane__Cor; // millimolar / time_units
         const double var_intracellular_Ca__w = 4.0; // dimensionless
         const double var_intracellular_Ca__V_3 = pow(var_chaste_interface__intracellular_Ca__Ca_c, var_intracellular_Ca__w) * pow(var_chaste_interface__intracellular_Ca__Ca_s, var_intracellular_Ca__m) * pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__o) * var_intracellular_Ca__V_M3 / ((pow(var_chaste_interface__intracellular_Ca__Ca_c, var_intracellular_Ca__w) + pow(var_intracellular_Ca__k_a, var_intracellular_Ca__w)) * (pow(var_chaste_interface__intracellular_Ca__Ca_s, var_intracellular_Ca__m) + pow(var_intracellular_Ca__k_r, var_intracellular_Ca__m)) * (pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__o) + pow(var_intracellular_Ca__k_p, var_intracellular_Ca__o))); // millimolar_per_time_units
         const double d_dt_chaste_interface_var_intracellular_Ca__Ca_c = (-var_intracellular_Ca__V_2 + var_chaste_interface__intracellular_Ca__Ca_s * var_intracellular_Ca__k_f - var_chaste_interface__intracellular_Ca__Ca_c * var_intracellular_Ca__K + var_intracellular_Ca__V_3 + var_intracellular_Ca__V_in) * var_Membrane__Cor; // millimolar / time_units
@@ -225,6 +226,10 @@ void OdeSystemInformation<CellDu2013_neuralFromCellML>::Initialise(void)
     // mParameters[1]:
     this->mParameterNames.push_back("inhibitory_neural");
     this->mParameterUnits.push_back("conductance_units");
+
+        // mParameters[2]:
+    this->mParameterNames.push_back("eta");
+    this->mParameterUnits.push_back("per_time_units");
 
     // Derived Quantity index [0]:
     this->mDerivedQuantityNames.push_back("Time__time");
