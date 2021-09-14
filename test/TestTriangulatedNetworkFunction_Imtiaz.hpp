@@ -48,10 +48,10 @@ public:
         {
             //ICCCBDerivedCa* cell = new ICCCBDerivedCa(mpSolver, mpZeroStimulus);
             Cellimtiaz_2002d_noTstart_CORFromCellML* cell = new Cellimtiaz_2002d_noTstart_CORFromCellML(mpSolver, mpZeroStimulus);
-            cell->SetParameter("eta", 0.045);
+            cell->SetParameter("eta", 0.041);
             if(ellipseRegion.DoesContain(myPoint))
             {
-                cell->SetParameter("eta", 0.037);
+                cell->SetParameter("eta", 0.0389);
             }
             return cell;
         }
@@ -113,7 +113,7 @@ public:
         HeartConfig::Instance()->Reset();
 	HeartConfig::Instance()->SetSimulationDuration(40000);
 
-        std::string mod = myFile + "-Imtiaz";
+        std::string mod = myFile + "-Imtiaz_base";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
 	HeartConfig::Instance()->SetOutputFilenamePrefix("results");
         std::set<unsigned> tissue_ids;
