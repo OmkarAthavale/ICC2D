@@ -171,14 +171,14 @@
         const double var_intracellular_Ca__u = 4.0; // dimensionless
         const double var_intracellular_Ca__r = 8.0; // dimensionless
         const double var_intracellular_Ca__P_MV = 0.032500000000000001; // millimolar_per_time_units
-        const double var_intracellular_Ca__eta = mParameters[0]; // per_time_units
+        // const double var_intracellular_Ca__eta = this->GetParameter("eta"); // per_time_units
         //const double var_intracellular_Ca__eta = rY[6]; // per_time_units
         const double var_intracellular_Ca__V_m = var_Membrane__V_m; // voltage_units
         const double var_intracellular_Ca__beta = 0.00097499999999999996; // millimolar_per_time_units
         const double var_intracellular_Ca__k_v =  -68.0; // voltage_units
         const double var_intracellular_Ca__k_4 = 0.5; // millimolar
         const double var_intracellular_Ca__V_M4 = 0.00048749999999999998; // millimolar_per_time_units
-        const double var_intracellular_Ca__d_IP_3_d_Time__time = var_intracellular_Ca__Cor * (((var_intracellular_Ca__beta - (var_intracellular_Ca__eta * var_intracellular_Ca__IP_3)) - ((var_intracellular_Ca__V_M4 * pow(var_intracellular_Ca__IP_3, var_intracellular_Ca__u)) / (pow(var_intracellular_Ca__k_4, var_intracellular_Ca__u) + pow(var_intracellular_Ca__IP_3, var_intracellular_Ca__u)))) + (var_intracellular_Ca__P_MV * (1.0 - (pow(var_intracellular_Ca__V_m, var_intracellular_Ca__r) / (pow(var_intracellular_Ca__k_v, var_intracellular_Ca__r) + pow(var_intracellular_Ca__V_m, var_intracellular_Ca__r)))))); // 'millimole per litre per millisecond'
+        const double var_intracellular_Ca__d_IP_3_d_Time__time = var_intracellular_Ca__Cor * (((var_intracellular_Ca__beta - (this->GetParameter("eta") * var_intracellular_Ca__IP_3)) - ((var_intracellular_Ca__V_M4 * pow(var_intracellular_Ca__IP_3, var_intracellular_Ca__u)) / (pow(var_intracellular_Ca__k_4, var_intracellular_Ca__u) + pow(var_intracellular_Ca__IP_3, var_intracellular_Ca__u)))) + (var_intracellular_Ca__P_MV * (1.0 - (pow(var_intracellular_Ca__V_m, var_intracellular_Ca__r) / (pow(var_intracellular_Ca__k_v, var_intracellular_Ca__r) + pow(var_intracellular_Ca__V_m, var_intracellular_Ca__r)))))); // 'millimole per litre per millisecond'
         const double var_Membrane__intracellular_Ca__d_IP_3_d_Time__time = var_intracellular_Ca__d_IP_3_d_Time__time; // ___units_21
         const double var_chaste_interface__d_Na__d_d_Na_d_Time__time = var_Membrane__d_Na__d_d_Na_d_Time__time; // ___units_7
         const double var_chaste_interface__f_Na__d_f_Na_d_Time__time = var_Membrane__f_Na__d_f_Na_d_Time__time; // ___units_7
