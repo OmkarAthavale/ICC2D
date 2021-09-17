@@ -111,7 +111,7 @@ public:
         ICCNwCellFactory nwCells(iccNodes);
         BidomainProblem<2> bidomain_problem(&nwCells, true);
         HeartConfig::Instance()->Reset();
-	HeartConfig::Instance()->SetSimulationDuration(40000);
+	HeartConfig::Instance()->SetSimulationDuration(30000);
 
         std::string mod = myFile + "-Du_base";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
