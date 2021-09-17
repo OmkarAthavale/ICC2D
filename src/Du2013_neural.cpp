@@ -118,7 +118,7 @@
         const double var_intracellular_Ca__V_M3 = 0.32240000000000002; // millimolar_per_time_units
         const double var_intracellular_Ca__V_M4 = 0.00048749999999999998; // millimolar_per_time_units
         const double var_intracellular_Ca__V_in = var_chaste_interface__intracellular_Ca__IP_3 * var_intracellular_Ca__V_1 + var_intracellular_Ca__V_0; // millimolar_per_time_units
-        const double var_intracellular_Ca__eta = 0.038899999999999997; // per_time_units
+        const double var_intracellular_Ca__eta = mParameters[0]; //0.038899999999999997; // per_time_units
         const double var_intracellular_Ca__k_2 = 1.0; // millimolar
         const double var_intracellular_Ca__k_4 = 0.5; // millimolar
         const double var_intracellular_Ca__k_a = 0.90000000000000002; // millimolar
@@ -229,6 +229,10 @@ void OdeSystemInformation<CellDu2013_neuralFromCellML>::Initialise(void)
     // Derived Quantity index [0]:
     this->mDerivedQuantityNames.push_back("Time__time");
     this->mDerivedQuantityUnits.push_back("time_units");
+
+    // mParameters[0]: a new parameter that should be set for each cell
+    this->mParameterNames.push_back("eta");
+    this->mParameterUnits.push_back("dimensionless");
 
     this->mInitialised = true;
 }
