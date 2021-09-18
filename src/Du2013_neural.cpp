@@ -15,7 +15,6 @@
 #include <cassert>
 #include <memory>
 #include "Exception.hpp"
-#include "Debug.hpp"
 #include "OdeSystemInformation.hpp"
 #include "RegularStimulus.hpp"
 #include "HeartConfig.hpp"
@@ -64,7 +63,6 @@
         // Units: dimensionless; Initial value: 0.0
         double var_chaste_interface__f_Na__f_Na = rY[3];
         // Units: dimensionless; Initial value: 0.9997
-        TRACE("GetIIonic");
 
         const double var_Membrane__I_stim = 0; // current_units
         const double var_i_BK__E_K = -72.0; // voltage_units
@@ -102,7 +100,7 @@
         // Units: millimolar; Initial value: 2.0014
         double var_chaste_interface__intracellular_Ca__IP_3 = rY[5];
         // Units: millimolar; Initial value: 0.3791
-        TRACE("EvalYDerivs");
+
         // Mathematics
         double d_dt_chaste_interface_var_Membrane__V_m;
         const double var_Membrane__Cor = 1.0; // dimensionless
