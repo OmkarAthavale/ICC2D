@@ -15,6 +15,7 @@
 #include <cassert>
 #include <memory>
 #include "Exception.hpp"
+#include "Debug.hpp"
 #include "OdeSystemInformation.hpp"
 #include "RegularStimulus.hpp"
 #include "HeartConfig.hpp"
@@ -63,7 +64,8 @@
         // Units: dimensionless; Initial value: 0.0
         double var_chaste_interface__f_Na__f_Na = rY[3];
         // Units: dimensionless; Initial value: 0.9997
-        
+        TRACE("GetIIonic");
+
         const double var_Membrane__I_stim = 0; // current_units
         const double var_i_BK__E_K = -72.0; // voltage_units
         const double var_i_Ca__E_Ca = -20.0; // voltage_units
@@ -100,7 +102,7 @@
         // Units: millimolar; Initial value: 2.0014
         double var_chaste_interface__intracellular_Ca__IP_3 = rY[5];
         // Units: millimolar; Initial value: 0.3791
-
+        TRACE("EvalYDerivs");
         // Mathematics
         double d_dt_chaste_interface_var_Membrane__V_m;
         const double var_Membrane__Cor = 1.0; // dimensionless
@@ -112,13 +114,13 @@
         const double d_dt_chaste_interface_var_f_Na__f_Na = (-var_chaste_interface__f_Na__f_Na + var_f_Na__f_inf_Na) * var_Membrane__Cor / var_f_Na__tau_f_Na; // 1 / time_units
         const double var_intracellular_Ca__K = 0.00064349999999999997; // per_time_units
         const double var_intracellular_Ca__P_MV = 0.032500000000000001; // millimolar_per_time_units
-        const double var_intracellular_Ca__V_0 = 0.00011; // millimolar_per_time_units
-        const double var_intracellular_Ca__V_1 = 0.00033; // per_time_units
+        const double var_intracellular_Ca__V_0 = 0.00021450000000000001; // millimolar_per_time_units
+        const double var_intracellular_Ca__V_1 = 0.00022094000000000001; // per_time_units
         const double var_intracellular_Ca__V_M2 = 0.0048999999999999998; // millimolar_per_time_units
         const double var_intracellular_Ca__V_M3 = 0.32240000000000002; // millimolar_per_time_units
         const double var_intracellular_Ca__V_M4 = 0.00048749999999999998; // millimolar_per_time_units
         const double var_intracellular_Ca__V_in = var_chaste_interface__intracellular_Ca__IP_3 * var_intracellular_Ca__V_1 + var_intracellular_Ca__V_0; // millimolar_per_time_units
-        const double var_intracellular_Ca__eta = mParameters[0]; //0.038899999999999997; // per_time_units
+        // const double var_intracellular_Ca__eta = mParameters[0]; //0.038899999999999997; // per_time_units
         const double var_intracellular_Ca__k_2 = 1.0; // millimolar
         const double var_intracellular_Ca__k_4 = 0.5; // millimolar
         const double var_intracellular_Ca__k_a = 0.90000000000000002; // millimolar
@@ -132,7 +134,7 @@
         const double var_intracellular_Ca__o = 4.0; // dimensionless
         const double var_intracellular_Ca__r = 5.0; // dimensionless
         const double var_intracellular_Ca__u = 4.0; // dimensionless
-        const double d_dt_chaste_interface_var_intracellular_Ca__IP_3 = ((1.0 - pow(var_chaste_interface__Membrane__V_m, var_intracellular_Ca__r) / (pow(var_chaste_interface__Membrane__V_m, var_intracellular_Ca__r) + pow(var_intracellular_Ca__k_v, var_intracellular_Ca__r))) * var_intracellular_Ca__P_MV - var_chaste_interface__intracellular_Ca__IP_3 * var_intracellular_Ca__eta - pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__u) * var_intracellular_Ca__V_M4 / (pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__u) + pow(var_intracellular_Ca__k_4, var_intracellular_Ca__u)) + mParameters[0]) * var_Membrane__Cor; // millimolar / time_units
+        const double d_dt_chaste_interface_var_intracellular_Ca__IP_3 = ((1.0 - pow(var_chaste_interface__Membrane__V_m, var_intracellular_Ca__r) / (pow(var_chaste_interface__Membrane__V_m, var_intracellular_Ca__r) + pow(var_intracellular_Ca__k_v, var_intracellular_Ca__r))) * var_intracellular_Ca__P_MV - var_chaste_interface__intracellular_Ca__IP_3 * this->GetParameter("eta") - pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__u) * var_intracellular_Ca__V_M4 / (pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__u) + pow(var_intracellular_Ca__k_4, var_intracellular_Ca__u)) + mParameters[0]) * var_Membrane__Cor; // millimolar / time_units
         const double var_intracellular_Ca__w = 4.0; // dimensionless
         const double var_intracellular_Ca__V_3 = pow(var_chaste_interface__intracellular_Ca__Ca_c, var_intracellular_Ca__w) * pow(var_chaste_interface__intracellular_Ca__Ca_s, var_intracellular_Ca__m) * pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__o) * var_intracellular_Ca__V_M3 / ((pow(var_chaste_interface__intracellular_Ca__Ca_c, var_intracellular_Ca__w) + pow(var_intracellular_Ca__k_a, var_intracellular_Ca__w)) * (pow(var_chaste_interface__intracellular_Ca__Ca_s, var_intracellular_Ca__m) + pow(var_intracellular_Ca__k_r, var_intracellular_Ca__m)) * (pow(var_chaste_interface__intracellular_Ca__IP_3, var_intracellular_Ca__o) + pow(var_intracellular_Ca__k_p, var_intracellular_Ca__o))); // millimolar_per_time_units
         const double d_dt_chaste_interface_var_intracellular_Ca__Ca_c = (-var_intracellular_Ca__V_2 + var_chaste_interface__intracellular_Ca__Ca_s * var_intracellular_Ca__k_f - var_chaste_interface__intracellular_Ca__Ca_c * var_intracellular_Ca__K + var_intracellular_Ca__V_3 + var_intracellular_Ca__V_in) * var_Membrane__Cor; // millimolar / time_units
