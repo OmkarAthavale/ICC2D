@@ -144,8 +144,8 @@
         const double var_intracellular_Ca__Ca_c = var_Membrane__Ca_c; // millimolar
         const double var_Membrane__IP_3 = var_chaste_interface__intracellular_Ca__IP_3; // millimolar
         const double var_intracellular_Ca__IP_3 = var_Membrane__IP_3; // millimolar
-        const double var_intracellular_Ca__V_1 = 0.00033; // per_time_units
-        const double var_intracellular_Ca__V_0 = 0.00011; // millimolar_per_time_units
+        const double var_intracellular_Ca__V_1 = 0.00022094000000000001; // per_time_units
+        const double var_intracellular_Ca__V_0 = 0.00021450000000000001; // millimolar_per_time_units
         const double var_intracellular_Ca__V_in = var_intracellular_Ca__V_0 + (var_intracellular_Ca__V_1 * var_intracellular_Ca__IP_3); // millimolar_per_time_units
         const double var_intracellular_Ca__k_f = 5.8499999999999999e-05; // per_time_units
         const double var_intracellular_Ca__Cor = var_Membrane__Cor; // dimensionless
