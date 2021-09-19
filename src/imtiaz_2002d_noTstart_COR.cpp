@@ -73,7 +73,7 @@
         const double var_i_Ca__V_m = var_Membrane__V_m; // voltage_units
         const double var_i_Ca__I_Ca = var_i_Ca__G_Ca * (var_i_Ca__V_m - var_i_Ca__E_Ca); // current_units
         const double var_i_BK__V_m = var_Membrane__V_m; // voltage_units
-        const double var_i_BK__G_max_BK = 1.2; // conductance_units
+        const double var_i_BK__G_max_BK = mParameters[2];//1.2; // conductance_units
         const double var_i_BK__Ca_c = var_Membrane__Ca_c; // millimolar
         const double var_d_BK__Ca_c = var_i_BK__Ca_c; // millimolar
         const double var_d_BK__V_m = var_i_BK__V_m; // voltage_units
@@ -174,7 +174,7 @@
         const double var_intracellular_Ca__eta = mParameters[0]; // per_time_units
         //const double var_intracellular_Ca__eta = rY[6]; // per_time_units
         const double var_intracellular_Ca__V_m = var_Membrane__V_m; // voltage_units
-        const double var_intracellular_Ca__beta = 0.00097499999999999996; // millimolar_per_time_units
+        const double var_intracellular_Ca__beta = mParameters[1]; //0.00097499999999999996; // millimolar_per_time_units
         const double var_intracellular_Ca__k_v =  -68.0; // voltage_units
         const double var_intracellular_Ca__k_4 = 0.5; // millimolar
         const double var_intracellular_Ca__V_M4 = 0.00048749999999999998; // millimolar_per_time_units
@@ -212,7 +212,7 @@
             const double var_i_Ca__I_Ca = var_i_Ca__G_Ca * (var_i_Ca__V_m - var_i_Ca__E_Ca); // current_units
             const double var_Membrane__I_Ca = var_i_Ca__I_Ca; // current_units
             const double var_i_BK__V_m = var_Membrane__V_m; // voltage_units
-            const double var_i_BK__G_max_BK = 1.2; // conductance_units
+            const double var_i_BK__G_max_BK = mParameters[2];//1.2; // conductance_units
             const double var_i_BK__Ca_c = var_Membrane__Ca_c; // millimolar
             const double var_d_BK__Ca_c = var_i_BK__Ca_c; // millimolar
             const double var_d_BK__V_m = var_i_BK__V_m; // voltage_units
@@ -279,6 +279,10 @@ void OdeSystemInformation<Cellimtiaz_2002d_noTstart_CORFromCellML>::Initialise(v
     this->mInitialConditions.push_back(0.045);
     // mParameters[0]: a new parameter that should be set for each cell
     this->mParameterNames.push_back("eta");
+    this->mParameterUnits.push_back("dimensionless");
+    this->mParameterNames.push_back("excitatory_neural");
+    this->mParameterUnits.push_back("dimensionless");
+    this->mParameterNames.push_back("inhibitory_neural");
     this->mParameterUnits.push_back("dimensionless");
 
     this->mInitialised = true;
