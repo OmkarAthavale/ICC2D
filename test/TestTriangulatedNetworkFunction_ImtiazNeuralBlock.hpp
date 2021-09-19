@@ -146,7 +146,7 @@ public:
         HeartConfig::Instance()->Reset();
 	HeartConfig::Instance()->SetSimulationDuration(40000);
 
-        std::string mod = myFile + "-ImtiazBlackNeural";
+        std::string mod = myFile + "-ImtiazBlockNeural";
         HeartConfig::Instance()->SetOutputDirectory(mod.c_str());
 	HeartConfig::Instance()->SetOutputFilenamePrefix("results");
         std::set<unsigned> tissue_ids;
